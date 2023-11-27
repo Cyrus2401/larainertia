@@ -8,7 +8,13 @@ class NiveauScolaireController extends Controller
 {
     public function index(){
 
-        return inertia('NiveauScolaire/Index');
+        $niveauScolaire = NiveauScolaire::orderBy('nom', 'ASC')->get();
+
+        return inertia('NiveauScolaire/Index', [
+
+            'niveauScolaire' => $niveauScolaire
+
+        ]);
 
     }
 }
