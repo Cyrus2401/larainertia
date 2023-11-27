@@ -3,6 +3,8 @@
 
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EtudiantController;
+use App\Http\Controllers\NiveauScolaireController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +19,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    return Inertia::render('Test');
+    return Inertia::render('Home');
 
 })->name('home');
 
-Route::get('/contact', function () {
+Route::get('/etudiant', [EtudiantController::class, 'index'])->name('etudiant.index');
+Route::get('/etudiant/create', [EtudiantController::class, 'create'])->name('etudiant.create');
 
-    return Inertia::render('Test2');
-    
-})->name('contact');
+Route::get('/niveauScolaire', [NiveauScolaireController::class, 'index'])->name('niveauScolaire.index');
+// Route::get('/niveauScolaire/create', [NiveauScolaireController::class, 'create'])->name('niveauScolaire.create');
+

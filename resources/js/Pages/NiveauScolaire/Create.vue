@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Page de test 2</h1>
+                        <h1 class="m-0">Formulaire de création des Niveaux Scolaires</h1>
                     </div>
                 </div>
             </div>
@@ -23,15 +23,3 @@
     </div>
 
 </template>
-
-<!-- <script>
-
-    import MainLayout from "../Layouts/MainLayout.vue";
-
-    export default {
-
-        layout : MainLayout
-
-    }
-    
-</script> -->
