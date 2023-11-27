@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\NiveauScolaire;
 
 class NiveauScolaireController extends Controller
 {
     public function index(){
 
-        $niveauScolaire = NiveauScolaire::orderBy('nom', 'ASC')->get();
+        $niveauScolaires = NiveauScolaire::orderBy('nom', 'ASC')->paginate(2);
 
         return inertia('NiveauScolaire/Index', [
 
-            'niveauScolaire' => $niveauScolaire
+            'niveauScolaires' => $niveauScolaires
 
         ]);
 
