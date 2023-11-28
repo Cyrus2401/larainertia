@@ -27529,6 +27529,7 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var nomNiveauScolaire = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)("");
+    var nomError = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)("");
     var createModal = "";
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       createModal = $('#createModal');
@@ -27545,23 +27546,28 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         onSuccess: function onSuccess(page) {
           closeModal();
-          (0,_Composables_alert_js__WEBPACK_IMPORTED_MODULE_2__.useSwallSuccess)("Niveau Scolaire ajouté avec succès");
+          (0,_Composables_alert_js__WEBPACK_IMPORTED_MODULE_2__.useSwalSuccess)("Niveau Scolaire ajouté avec succès");
         },
         onError: function onError(errors) {
-          (0,_Composables_alert_js__WEBPACK_IMPORTED_MODULE_2__.useSwallError)("Echec de l'ajout du niveau scolaire");
+          console.log(errors);
+          if (errors.nom != null) {
+            nomError.value = errors.nom;
+          }
+          (0,_Composables_alert_js__WEBPACK_IMPORTED_MODULE_2__.useSwalError)("Une erreur s'est produite !");
         }
       });
     };
     var __returned__ = {
       nomNiveauScolaire: nomNiveauScolaire,
+      nomError: nomError,
       createModal: createModal,
       closeModal: closeModal,
       soumettre: soumettre,
       ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_0__.onMounted,
       router: _inertiajs_vue3__WEBPACK_IMPORTED_MODULE_1__.router,
-      useSwallSuccess: _Composables_alert_js__WEBPACK_IMPORTED_MODULE_2__.useSwallSuccess,
-      useSwallError: _Composables_alert_js__WEBPACK_IMPORTED_MODULE_2__.useSwallError
+      useSwalSuccess: _Composables_alert_js__WEBPACK_IMPORTED_MODULE_2__.useSwalSuccess,
+      useSwalError: _Composables_alert_js__WEBPACK_IMPORTED_MODULE_2__.useSwalError
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -27995,7 +28001,11 @@ var _hoisted_10 = {
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "nom"
 }, "Nom", -1 /* HOISTED */);
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+var _hoisted_12 = {
+  key: 0,
+  "class": "invalid-feedback error"
+};
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   form: "createForm",
   type: "submit",
   "class": "btn btn-success"
@@ -28012,20 +28022,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onSubmit: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)($setup.soumettre, ["prevent"]),
     id: "createForm"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [_hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
+      'is-invalid': $setup.nomError != ''
+    }, "form-control"]),
     id: "nom",
     type: "text",
-    "class": "form-control",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $setup.nomNiveauScolaire = $event;
     }),
     required: ""
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.nomNiveauScolaire]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.nomNiveauScolaire]]), $setup.nomError != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.nomError), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "modal-footer"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "button",
     "class": "btn btn-danger",
     onClick: $setup.closeModal
-  }, "Fermer"), _hoisted_12])], 40 /* PROPS, HYDRATE_EVENTS */, _hoisted_8)])])])], 64 /* STABLE_FRAGMENT */);
+  }, "Fermer"), _hoisted_13])], 40 /* PROPS, HYDRATE_EVENTS */, _hoisted_8)])])])], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -28191,10 +28203,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useSwallError: () => (/* binding */ useSwallError),
-/* harmony export */   useSwallSuccess: () => (/* binding */ useSwallSuccess)
+/* harmony export */   useSwalError: () => (/* binding */ useSwalError),
+/* harmony export */   useSwalSuccess: () => (/* binding */ useSwalSuccess)
 /* harmony export */ });
-function useSwallSuccess(message) {
+function useSwalSuccess(message) {
   Swal.fire({
     toast: true,
     icon: "success",
@@ -28205,7 +28217,7 @@ function useSwallSuccess(message) {
     timer: 4000
   });
 }
-function useSwallError(message) {
+function useSwalError(message) {
   Swal.fire({
     toast: true,
     icon: "error",

@@ -17,7 +17,8 @@
 
                         <div class="form-group">
                             <label for="nom">Nom</label>
-                            <input id="nom" type="text" class="form-control" v-model="nomNiveauScolaire" required>
+                            <input :class="{ 'is-invalid': nomError != '' }" id="nom" type="text" class="form-control" v-model="nomNiveauScolaire" required>
+                            <span v-if="nomError != ''" class="invalid-feedback error">{{ nomError }}</span>
                         </div>
                         
                     </div>
@@ -38,9 +39,11 @@
 
     import { router } from '@inertiajs/vue3'
 
-    import { useSwallSuccess, useSwallError } from "../../Composables/alert.js"
+    import { useSwalSuccess, useSwalError } from "../../Composables/alert.js"
 
     const nomNiveauScolaire = ref("")
+
+    const nomError = ref("")
 
     let createModal = ""
 
@@ -70,13 +73,21 @@
                 onSuccess : (page) => {
 
                     closeModal();
-                    useSwallSuccess("Niveau Scolaire ajouté avec succès")
+                    useSwalSuccess("Niveau Scolaire ajouté avec succès")
                     
                 },
                 
                 onError : (errors) => {
 
-                    useSwallError("Echec de l'ajout du niveau scolaire")
+                    console.log(errors);
+
+                    if(errors.nom != null){
+
+                        nomError.value = errors.nom
+
+                    }
+
+                    useSwalError("Une erreur s'est produite !")
 
                 }
             }
