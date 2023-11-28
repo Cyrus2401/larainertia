@@ -11,11 +11,25 @@ class NiveauScolaireController extends Controller
 
         $niveauScolaires = NiveauScolaire::paginate(2);
 
-        return inertia('NiveauScolaire/Index', [
+        return inertia('NiveauScolaire/IndexNiveauScolaire', [
 
             'niveauScolaires' => $niveauScolaires
 
         ]);
+
+    }
+
+    public function store(Request $request){
+
+        $request->validate([
+            'nom' => 'required'
+        ]);
+
+        NiveauScolaire::create([
+            "nom" => $request->nom
+        ]);
+
+        return redirect()->back();
 
     }
 }
